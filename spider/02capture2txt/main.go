@@ -53,7 +53,10 @@ func spider(page int, ch chan int) {
 		defer fl.Close()
 
 		bytes := []byte(text.String() + "\n\n")
-		fl.Write(bytes)
+		_, errs = fl.Write(bytes)
+		if errs != nil {
+			panic(0)
+		}
 	}
 
 	ch <- page
