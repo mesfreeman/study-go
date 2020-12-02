@@ -44,7 +44,7 @@ func spider(page int, ch chan int) {
 	for _, text := range texts {
 		//fmt.Println(text.String() + "\n")
 
-		fl, err := os.OpenFile("funny.txt", os.O_APPEND|os.O_CREATE, 0644)
+		fl, errs := os.OpenFile("funny.txt", os.O_APPEND|os.O_CREATE, 0644)
 		if errs != nil {
 			fmt.Println("Open file fail.", err.Error())
 			os.Exit(0)
