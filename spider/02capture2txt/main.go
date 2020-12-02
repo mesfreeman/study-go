@@ -46,7 +46,7 @@ func spider(page int, ch chan int) {
 
 		fl, errs := os.OpenFile("funny.txt", os.O_APPEND|os.O_CREATE, 0644)
 		if errs != nil {
-			fmt.Println("Open file fail.", err.Error())
+			fmt.Println("Open file fail.", errs.Error())
 			os.Exit(0)
 		}
 
