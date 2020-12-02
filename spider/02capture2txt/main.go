@@ -42,7 +42,8 @@ func spider(page int, ch chan int) {
 	//pagenum := gjson.Parse(body).Get("pagenum").Int()
 	texts := gjson.Parse(body).Get("list.#.text").Array()
 	for _, text := range texts {
-		//fmt.Println(text.String() + "\n")
+		// 打印输出
+		fmt.Println(text.String() + "\n")
 
 		fl, errs := os.OpenFile("funny.txt", os.O_APPEND|os.O_CREATE, 0644)
 		if errs != nil {
