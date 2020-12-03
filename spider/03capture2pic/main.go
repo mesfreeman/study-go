@@ -14,9 +14,9 @@ import (
 
 /*
 1. 初始化管道
-2. 开启协程，爬取资源到管道中
+2. 开启线程，爬取资源到管道中
 3. 处理管道中的资源数据
-4. 监听管道，任务完成则关闭
+4. 主线程阻塞监听，等待所有线程结束
 */
 
 var (
@@ -30,7 +30,7 @@ func main() {
 	chanImageUrls = make(chan string, 100000)
 	chanTask = make(chan string, 5)
 
-	// 2. 开启协程，爬取资源到管道中
+	// 2. 开启线程，爬取资源到管道中
 	totalPage := 1
 	for i := 1; i <= totalPage; i++ {
 		waitGroup.Add(1)
@@ -49,7 +49,7 @@ func main() {
 
 	}
 
-	// 4. 监听管道，任务完成则关闭
+	// 4. 主线程阻塞监听，等待所有线程结束
 	waitGroup.Wait()
 	fmt.Println("爬取任务结束")
 }
