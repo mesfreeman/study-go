@@ -81,7 +81,7 @@ func taskSummary(totalPage int) {
 	var count int
 	for {
 		url := <-chanTask
-		fmt.Printf("【%s】完成了页面图片采集任务 \n", url)
+		fmt.Printf("页面【%s】完成了图片采集任务 \n", url)
 		count++
 
 		// 任务全部完成，关闭协程
