@@ -46,7 +46,6 @@ func main() {
 	for i := 1; i < 5; i++ {
 		waitGroup.Add(1)
 		go downloadImage()
-
 	}
 
 	// 4. 主线程阻塞监听，等待所有线程结束
