@@ -15,7 +15,7 @@ import (
 /*
 1. 初始化管道
 2. 开启线程，爬取资源到管道中
-3. 处理管道中的资源数据
+3. 处理管道中的数据
 4. 主线程阻塞监听，等待所有线程结束
 */
 
@@ -42,7 +42,7 @@ func main() {
 	waitGroup.Add(1)
 	go taskSummary(totalPage)
 
-	// 3. 处理管道中的资源数据，即下载图片资源
+	// 3. 处理管道中的数据，即下载图片资源
 	for i := 1; i < 5; i++ {
 		waitGroup.Add(1)
 		go downloadImage()
