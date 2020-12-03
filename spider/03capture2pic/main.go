@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/parnurzeal/gorequest"
 	"io/ioutil"
 	"regexp"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/parnurzeal/gorequest"
 )
 
 /*
@@ -55,20 +56,20 @@ func main() {
 
 // 下载图片到本地
 func downloadImage() {
-	for imageUrl := range chanImageUrls {
+	for imageURL := range chanImageUrls {
 		// 处理图片名
-		index := strings.LastIndex(imageUrl, "/")
-		filename := imageUrl[index+1:]
+		index := strings.LastIndex(imageURL, "/")
+		filename := imageURL[index+1:]
 		filename = strconv.Itoa(int(time.Now().UnixNano())) + "_" + filename
 
-		_, body, errors := gorequest.New().Get(imageUrl).End()
+		_, body, errors := gorequest.New().Get(imageURL).End()
 		if errors != nil {
-			fmt.Printf("请求图片链接获取内容失败，图片地址：%s \n", imageUrl)
+			fmt.Printf("请求图片链接获取内容失败，图片地址：%s \n", imageURL)
 		}
 
 		file := ioutil.WriteFile(filename, []byte(body), 0644)
 		if file != nil {
-			fmt.Printf("下载图片到本地文件夹中失败，图片地址：%s \n", imageUrl)
+			fmt.Printf("下载图片到本地文件夹中失败，图片地址：%s \n", imageURL)
 		} else {
 			fmt.Printf("下载图片到本地文件夹中成功，图片名称：%s \n", filename)
 		}
@@ -94,25 +95,24 @@ func taskSummary(totalPage int) {
 }
 
 // 获取指定页面的所有图片链接
-func getImgUrls(pageUrl string) {
-	_, body, errors := gorequest.New().Get(pageUrl).End()
+func getImgUrls(pageURL string) {
+	_, body, errors := gorequest.New().Get(pageURL).End()
 	if errors != nil {
-		fmt.Printf("获取指定页面的所有图片链接失败，页面地址：%s \n", pageUrl)
+		fmt.Printf("获取指定页面的所有图片链接失败，页面地址：%s \n", pageURL)
 		panic(0)
 	}
 
 	// 正则解析数据
 	// lazysrc2x="https://img.souutu.com/2020/1109/20201109015111378.jpg.420.760.jpg 2x"
 	subMatches := regexp.MustCompile(`lazysrc2x="(https?:\/\/(.*?).jpg)\s2x`).FindAllStringSubmatch(body, -1)
-	fmt.Printf("页面【%s】共找到 %d 个图片资源 \n", pageUrl, len(subMatches))
+	fmt.Printf("页面【%s】共找到 %d 个图片资源 \n", pageURL, len(subMatches))
 
 	// 2. 开启协程，爬取资源到管道中
 	for _, item := range subMatches {
-		imageUrl := item[1]
-		chanImageUrls <- imageUrl
+		chanImageUrls <- item[1]
 	}
 
 	// 任务统计
-	chanTask <- pageUrl
+	chanTask <- pageURL
 	waitGroup.Done()
 }
