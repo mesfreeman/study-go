@@ -31,7 +31,7 @@ func main() {
 	chanTask = make(chan string, 5)
 
 	// 2. 开启线程，爬取资源到管道中
-	totalPage := 1
+	totalPage := 10
 	for i := 1; i <= totalPage; i++ {
 		waitGroup.Add(1)
 		// https://www.souutu.com/mbizhi/index_3.html
