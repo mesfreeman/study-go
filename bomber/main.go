@@ -13,7 +13,7 @@ import (
 
 var (
 	// 轰炸手机号
-	phoneNum string = `13925079032`
+	phoneNum = `13925079032`
 
 	// 等待组
 	waitGroup sync.WaitGroup
