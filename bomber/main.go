@@ -51,7 +51,7 @@ func ddjbSendCode() {
 
 	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(
 		chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.Flag("headless", false),
+		chromedp.Flag("headless", true),
 	)...)
 
 	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
@@ -80,5 +80,5 @@ func ddjbSendCode() {
 		return
 	}
 
-	fmt.Println("多多进宝验证码发送失败", txt, err.Error())
+	fmt.Println("多多进宝验证码发送失败", txt)
 }
