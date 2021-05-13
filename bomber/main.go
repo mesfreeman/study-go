@@ -32,7 +32,7 @@ var (
 	isLoadImg = false
 
 	// 是否为无头浏览器
-	isHeadless = false
+	isHeadless = true
 )
 
 func main() {
@@ -101,7 +101,7 @@ func ddjbSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -154,7 +154,7 @@ func jlmfSenCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -206,7 +206,7 @@ func wbtcSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -258,7 +258,7 @@ func ltdSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -313,7 +313,7 @@ func dhlSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -368,7 +368,7 @@ func xrsSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -427,7 +427,7 @@ func zlhxSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
