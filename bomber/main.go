@@ -32,7 +32,7 @@ var (
 	isLoadImg = false
 
 	// 是否为无头浏览器
-	isHeadless = false
+	isHeadless = true
 )
 
 func main() {
