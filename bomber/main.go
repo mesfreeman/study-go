@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -17,13 +18,23 @@ var (
 
 	// 等待组
 	waitGroup sync.WaitGroup
+
+	// 浏览器标识
+	userAgent = `Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.103 Safari/537.36`
+
+	// 是否加载页面图片
+	isLoadImg = false
+
+	// 是否为无头浏览器
+	isHeadless = true
 )
 
 func main() {
 	// 执行
 	for i := 0; i < 10; i++ {
-		waitGroup.Add(1)
-		ddjbSendCode()
+		waitGroup.Add(1)             // 添加任务
+		go ddjbSendCode()            // 多多进宝
+		time.Sleep(30 * time.Second) // 一般网站30秒只能发一次
 	}
 
 	waitGroup.Wait()
@@ -51,7 +62,9 @@ func ddjbSendCode() {
 
 	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(
 		chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.Flag("headless", true),
+		chromedp.Flag("blink-settings", "imagesEnabled="+strconv.FormatBool(isLoadImg)), // 不显示图片
+		chromedp.Flag("headless", isHeadless),
+		chromedp.UserAgent(userAgent),
 	)...)
 
 	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
@@ -71,14 +84,19 @@ func ddjbSendCode() {
 	)
 
 	if err != nil {
-		fmt.Println("多多进宝验证码发送失败", txt, err.Error())
+		fmt.Println(currentTime()+"多多进宝验证码发送失败", txt, err.Error())
 		return
 	}
 
 	if !strings.Contains(txt, "获取验证码") {
-		fmt.Println("多多进宝验证码发送成功", txt)
+		fmt.Println(currentTime()+"多多进宝验证码发送成功", txt)
 		return
 	}
 
-	fmt.Println("多多进宝验证码发送失败", txt)
+	fmt.Println(currentTime()+"多多进宝验证码发送失败", txt)
+}
+
+// 当前时间
+func currentTime() string {
+	return "[" + time.Now().Format("2006-01-02 15:04:05") + "] "
 }
