@@ -32,7 +32,7 @@ var (
 	isLoadImg = false
 
 	// 是否为无头浏览器
-	isHeadless = true
+	isHeadless = false
 )
 
 func main() {
@@ -63,6 +63,7 @@ func main() {
 		go ltdSendCode()  // LTD营销云
 		go dhlSendCode()  // 订花乐
 		go xrsSendCode()  // 学而思
+		// go zlhxSendCode() // 知了好学
 	}
 
 	waitGroup.Wait()
@@ -395,4 +396,67 @@ func xrsSendCode() {
 	}
 
 	fmt.Println(currentTime()+"学而思验证码发送失败", timepiece)
+}
+
+// 知了好学
+func zlhxSendCode() {
+	var (
+		// 首页
+		homeUrl = `https://xue.baidu.com/okam/pages/institution/index?shopId=79108778555891&bkExt=%7B%22qid%22%3A%229447659004328314113%22%2C%22query%22%3A%22%5Cu5c0f%5Cu5b66%5Cu6559%5Cu80b2%22%2C%22sid%22%3A%2233839_33970_31660_34004_33855_33607_26350_22160%22%7D&sa=101%2F5273&pathSource=okam%2Fpages%2Fhome%2Findex`
+
+		// 聊天
+		messagePath = `#root > div.sc-gsTCUz.bhdLno > div.sc-kEjbxe.sc-TmcTc.eYMCQN.kNUTii > div.sc-kEjbxe.sc-dacFzL.eYMCQN.hlSFbC > div > div.sc-kEjbxe.sc-dtwoBo.eYMCQN.inCwUZ > svg > path`
+
+		// 预约试听
+		listenPath = `#root > div.sc-gsTCUz.bhdLno > div.sc-eoohK.jwKGYa > div > div.sc-kEjbxe.sc-dFJsGO.eYMCQN.liTBVH > div.sc-dmlrTW.gDRPFp > div:nth-child(2) > button`
+
+		// 手机号输入
+		mobilePhonePath = `#appoint-phone`
+
+		// 发送验证码
+		sendCodePath = `#root > div.sc-gsTCUz.bhdLno > div.sc-eoohK.jwKGYa > div > div.sc-kEjbxe.sc-dFJsGO.eYMCQN.liTBVH > div.sc-dmlrTW.gDRPFp > div:nth-child(4) > div > div > div > div.sc-cTkwdZ.fFvlhF > div.sc-kEjbxe.eYMCQN > button`
+
+		// 计时器
+		timepiece string
+	)
+
+	ctx, _ := chromedp.NewExecAllocator(context.Background(), append(
+		chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.Flag("blink-settings", "imagesEnabled="+strconv.FormatBool(isLoadImg)), // 不显示图片
+		chromedp.Flag("headless", isHeadless),
+		chromedp.UserAgent(userAgent),
+	)...)
+
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
+	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
+
+	// 关闭浏览器
+	defer chromedp.Cancel(ctx)
+	defer waitGroup.Done()
+
+	err := chromedp.Run(ctx,
+		chromedp.Navigate(homeUrl),
+		chromedp.WaitVisible(messagePath),
+		chromedp.Click(messagePath),
+		chromedp.WaitVisible(listenPath),
+		chromedp.Click(listenPath),
+		chromedp.WaitVisible(mobilePhonePath, chromedp.ByID),
+		chromedp.SendKeys(mobilePhonePath, phoneNum, chromedp.ByID),
+		chromedp.Click(sendCodePath),
+		chromedp.Sleep(3*time.Second),
+		chromedp.Text(sendCodePath, &timepiece),
+	)
+
+	if err != nil {
+		fmt.Println(currentTime()+"知了好学验证码发送失败", timepiece, err.Error())
+		return
+	}
+
+	if strings.Contains(timepiece, "后重新获取") {
+		fmt.Println(currentTime()+"知了好学验证码发送成功", timepiece)
+		return
+	}
+
+	fmt.Println(currentTime()+"知了好学验证码发送失败", timepiece)
+
 }
