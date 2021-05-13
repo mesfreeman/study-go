@@ -100,7 +100,7 @@ func ddjbSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -153,7 +153,7 @@ func jlmfSenCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -205,7 +205,7 @@ func wbtcSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -257,7 +257,7 @@ func ltdSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -312,7 +312,7 @@ func dhlSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -367,7 +367,7 @@ func xrsSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 10*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -379,7 +379,7 @@ func xrsSendCode() {
 		chromedp.WaitVisible(mobilePhonePath, chromedp.ByID),
 		chromedp.SendKeys(mobilePhonePath, phoneNum, chromedp.ByID),
 		chromedp.Click(sendCodePath),
-		chromedp.Sleep(2*time.Second),
+		chromedp.Sleep(3*time.Second),
 		chromedp.Text(sendCodePath, &timepiece),
 	)
 
