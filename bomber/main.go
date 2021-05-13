@@ -57,13 +57,34 @@ func main() {
 
 		// 添加任务
 		waitGroup.Add(7)
-		go ddjbSendCode() // 多多进宝
-		go jlmfSenCode()  // 居里买房
-		go wbtcSendCode() // 58同城
-		go ltdSendCode()  // LTD营销云
-		go dhlSendCode()  // 订花乐
-		go xrsSendCode()  // 学而思
-		go ksSendCode()   // 快手
+
+		// 多多进宝
+		go ddjbSendCode()
+		time.Sleep(5 * time.Second)
+
+		// 居里买房
+		go jlmfSenCode()
+		time.Sleep(5 * time.Second)
+
+		// 58同城
+		go wbtcSendCode()
+		time.Sleep(5 * time.Second)
+
+		// LTD营销云
+		go ltdSendCode()
+		time.Sleep(5 * time.Second)
+
+		// 订花乐
+		go dhlSendCode()
+		time.Sleep(5 * time.Second)
+
+		// 学而思
+		go xrsSendCode()
+		time.Sleep(5 * time.Second)
+
+		// 快手
+		go ksSendCode()
+		time.Sleep(5 * time.Second)
 	}
 
 	waitGroup.Wait()
