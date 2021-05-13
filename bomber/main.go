@@ -405,7 +405,7 @@ func ksSendCode() {
 		homeUrl = `https://video.kuaishou.com/?utm_source=aa&utm_medium=05&utm_campaign=aa_05_ppfhx_yr&plan_id=138090084&unit_id=5205658030&creative_id=43661481714&keyword_id=202928521171&keyword=202928521171&bd_vid=12360404916185877643`
 
 		// 登录
-		messagePath = `#app > div:nth-child(1) > section > div > div > header > div > div:nth-child(3) > ul > li.toolbar-item.user-info-item > div > div`
+		loginPath = `#app > div:nth-child(1) > section > div > div > header > div > div:nth-child(3) > ul > li.toolbar-item.user-info-item > div > div`
 
 		// 手机号输入
 		mobilePhonePath = `#app > div:nth-child(2) > div > div > div > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div > input`
@@ -433,8 +433,8 @@ func ksSendCode() {
 
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(homeUrl),
-		chromedp.WaitVisible(messagePath),
-		chromedp.Click(messagePath),
+		chromedp.WaitVisible(loginPath),
+		chromedp.Click(loginPath),
 		chromedp.WaitVisible(mobilePhonePath),
 		chromedp.SendKeys(mobilePhonePath, phoneNum),
 		chromedp.Click(sendCodePath),
