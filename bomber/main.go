@@ -49,8 +49,8 @@ func main() {
 	// 执行
 	for i := 0; i < totalTimes; i++ {
 		if i != 0 {
-			// 一般网站60秒只能发一次
-			time.Sleep(60 * time.Second)
+			// 每波间隔120秒
+			time.Sleep(120 * time.Second)
 		}
 
 		fmt.Println("轰炸任务开始执行，当前波次[", i+1, "]")
