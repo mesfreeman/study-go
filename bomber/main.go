@@ -56,14 +56,14 @@ func main() {
 		fmt.Println("轰炸任务开始执行，当前波次[", i+1, "]")
 
 		// 添加任务
-		waitGroup.Add(6)
+		waitGroup.Add(7)
 		go ddjbSendCode() // 多多进宝
 		go jlmfSenCode()  // 居里买房
 		go wbtcSendCode() // 58同城
 		go ltdSendCode()  // LTD营销云
 		go dhlSendCode()  // 订花乐
 		go xrsSendCode()  // 学而思
-		// go zlhxSendCode() // 知了好学
+		go ksSendCode()   // 快手
 	}
 
 	waitGroup.Wait()
@@ -398,23 +398,20 @@ func xrsSendCode() {
 	fmt.Println(currentTime()+"学而思验证码发送失败", timepiece)
 }
 
-// 知了好学
-func zlhxSendCode() {
+// 快手
+func ksSendCode() {
 	var (
 		// 首页
-		homeUrl = `https://xue.baidu.com/okam/pages/institution/index?shopId=79108778555891&bkExt=%7B%22qid%22%3A%229447659004328314113%22%2C%22query%22%3A%22%5Cu5c0f%5Cu5b66%5Cu6559%5Cu80b2%22%2C%22sid%22%3A%2233839_33970_31660_34004_33855_33607_26350_22160%22%7D&sa=101%2F5273&pathSource=okam%2Fpages%2Fhome%2Findex`
+		homeUrl = `https://video.kuaishou.com/?utm_source=aa&utm_medium=05&utm_campaign=aa_05_ppfhx_yr&plan_id=138090084&unit_id=5205658030&creative_id=43661481714&keyword_id=202928521171&keyword=202928521171&bd_vid=12360404916185877643`
 
-		// 聊天
-		messagePath = `#root > div.sc-gsTCUz.bhdLno > div.sc-kEjbxe.sc-TmcTc.eYMCQN.kNUTii > div.sc-kEjbxe.sc-dacFzL.eYMCQN.hlSFbC > div > div.sc-kEjbxe.sc-dtwoBo.eYMCQN.inCwUZ > svg > path`
-
-		// 预约试听
-		listenPath = `#root > div.sc-gsTCUz.bhdLno > div.sc-eoohK.jwKGYa > div > div.sc-kEjbxe.sc-dFJsGO.eYMCQN.liTBVH > div.sc-dmlrTW.gDRPFp > div:nth-child(2) > button`
+		// 登录
+		messagePath = `#app > div:nth-child(1) > section > div > div > header > div > div:nth-child(3) > ul > li.toolbar-item.user-info-item > div > div`
 
 		// 手机号输入
-		mobilePhonePath = `#appoint-phone`
+		mobilePhonePath = `#app > div:nth-child(2) > div > div > div > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div:nth-child(1) > div > input`
 
 		// 发送验证码
-		sendCodePath = `#root > div.sc-gsTCUz.bhdLno > div.sc-eoohK.jwKGYa > div > div.sc-kEjbxe.sc-dFJsGO.eYMCQN.liTBVH > div.sc-dmlrTW.gDRPFp > div:nth-child(4) > div > div > div > div.sc-cTkwdZ.fFvlhF > div.sc-kEjbxe.eYMCQN > button`
+		sendCodePath = `#app > div:nth-child(2) > div > div > div > div > div > div:nth-child(2) > div:nth-child(1) > div > div > div > div.verify-login-input.verification-input.pl-input-container > div > div > span`
 
 		// 计时器
 		timepiece string
@@ -438,25 +435,22 @@ func zlhxSendCode() {
 		chromedp.Navigate(homeUrl),
 		chromedp.WaitVisible(messagePath),
 		chromedp.Click(messagePath),
-		chromedp.WaitVisible(listenPath),
-		chromedp.Click(listenPath),
-		chromedp.WaitVisible(mobilePhonePath, chromedp.ByID),
-		chromedp.SendKeys(mobilePhonePath, phoneNum, chromedp.ByID),
+		chromedp.WaitVisible(mobilePhonePath),
+		chromedp.SendKeys(mobilePhonePath, phoneNum),
 		chromedp.Click(sendCodePath),
-		chromedp.Sleep(3*time.Second),
+		chromedp.Sleep(2*time.Second),
 		chromedp.Text(sendCodePath, &timepiece),
 	)
 
 	if err != nil {
-		fmt.Println(currentTime()+"知了好学验证码发送失败", timepiece, err.Error())
+		fmt.Println(currentTime()+"快手验证码发送失败", timepiece, err.Error())
 		return
 	}
 
-	if strings.Contains(timepiece, "后重新获取") {
-		fmt.Println(currentTime()+"知了好学验证码发送成功", timepiece)
+	if strings.Contains(timepiece, "s") {
+		fmt.Println(currentTime()+"快手验证码发送成功", timepiece)
 		return
 	}
 
-	fmt.Println(currentTime()+"知了好学验证码发送失败", timepiece)
-
+	fmt.Println(currentTime()+"快手验证码发送失败", timepiece)
 }
