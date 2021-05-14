@@ -101,7 +101,7 @@ func ddjbSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -154,7 +154,7 @@ func jlmfSenCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -206,7 +206,7 @@ func wbtcSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -242,7 +242,7 @@ func ltdSendCode() {
 		loginUrl = `https://wei.ltd.com/user/#/auth/login?redirect=%2Fhome`
 
 		// 手机号
-		mobilePhonePath = `#pane-first > div > div.el-form-item.is-error.is-required > div > div.user-name.el-input.el-input--prefix > input`
+		mobilePhonePath = `#pane-first > div > div:nth-child(2) > div > div > input`
 
 		// 发送验证码
 		sendCodePath = `#pane-first > div > div:nth-child(3) > div > div > div > button`
@@ -258,7 +258,7 @@ func ltdSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -314,7 +314,7 @@ func dhlSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -369,7 +369,7 @@ func xrsSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -425,7 +425,7 @@ func ksSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
