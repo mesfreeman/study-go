@@ -32,7 +32,7 @@ var (
 	isLoadImg = false
 
 	// 是否为无头浏览器
-	isHeadless = false
+	isHeadless = true
 )
 
 func main() {
@@ -56,14 +56,14 @@ func main() {
 		fmt.Println("轰炸任务开始执行，当前波次[", i+1, "]")
 
 		// 添加任务
-		waitGroup.Add(1)
-		// go ddjbSendCode() // 多多进宝
-		// go jlmfSenCode()  // 居里买房
-		// go wbtcSendCode() // 58同城
-		go ltdSendCode() // LTD营销云
-		// go dhlSendCode()  // 订花乐
-		// go xrsSendCode()  // 学而思
-		// go ksSendCode()   // 快手
+		waitGroup.Add(7)
+		go ddjbSendCode() // 多多进宝
+		go jlmfSenCode()  // 居里买房
+		go wbtcSendCode() // 58同城
+		go ltdSendCode()  // LTD营销云
+		go dhlSendCode()  // 订花乐
+		go xrsSendCode()  // 学而思
+		go ksSendCode()   // 快手
 	}
 
 	waitGroup.Wait()
@@ -101,7 +101,7 @@ func ddjbSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -154,7 +154,7 @@ func jlmfSenCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -206,7 +206,7 @@ func wbtcSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -258,7 +258,7 @@ func ltdSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -314,7 +314,7 @@ func dhlSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -369,7 +369,7 @@ func xrsSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
@@ -425,7 +425,7 @@ func ksSendCode() {
 		chromedp.UserAgent(userAgent),
 	)...)
 
-	ctx, _ = context.WithTimeout(ctx, 30*time.Second)
+	ctx, _ = context.WithTimeout(ctx, 60*time.Second)
 	ctx, _ = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 
 	// 关闭浏览器
