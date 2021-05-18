@@ -8,14 +8,14 @@
 func reverse(x int) int {
 	var result int
 	for x != 0 {
-		tmp := x % 10
-		result = result*10 + tmp
+		y := x % 10
+		result = result*10 + y
 		x = x / 10
 	}
 
-	MaxInt32 := 1<<31 - 1
-	MinInt32 := -1 << 31
-	if result > MaxInt32 || result < MinInt32 {
+	maxInt := 1<<31 - 1
+	minInt := -1 << 31
+	if maxInt < result || minInt > result {
 		return 0
 	}
 
