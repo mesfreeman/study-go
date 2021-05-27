@@ -14,9 +14,7 @@ func addTool() func(int) int {
 // 闭包
 func main() {
 	a := addTool()
-	b1 := a(10)
-	fmt.Println("b1 = ", b1)
-
-	b2 := a(10)
-	fmt.Println("b2 = ", b2)
+	fmt.Println("a1 = ", a(10))
+	fmt.Println("a2 = ", a(10))
+	fmt.Println("a3 = ", a(10))
 }
