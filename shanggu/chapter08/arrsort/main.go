@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 // 冒泡排序
-func BubbleSort(arr *[5]int) *[5]int {
+func BubbleSort(arr *[5]int) {
 	for i := 0; i < len(arr)-1; i++ {
 		for j := 0; j < len(arr)-1-i; j++ {
 			if (*arr)[j] > (*arr)[j+1] {
@@ -11,10 +11,10 @@ func BubbleSort(arr *[5]int) *[5]int {
 			}
 		}
 	}
-	return arr
 }
 
 func main() {
 	var arr = [...]int{24, 69, 80, 57, 13}
-	fmt.Println(*BubbleSort(&arr))
+	BubbleSort(&arr)
+	fmt.Println(arr)
 }
