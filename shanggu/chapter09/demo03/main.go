@@ -2,7 +2,7 @@ package main
 
 import "fmt"
 
-// map 的 增 删 改 查
+// map 的 增 删 改 查 遍历
 func main() {
 	students := map[string]string{
 		"s1": "zhangsan",
@@ -29,4 +29,8 @@ func main() {
 		fmt.Println("没找到")
 	}
 
+	// 遍历
+	for key, val := range students {
+		fmt.Println("key: ", key, "val: ", val)
+	}
 }
