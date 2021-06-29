@@ -17,13 +17,8 @@ func (b *Box) Bulk() int {
 }
 
 func main() {
-	var length, width, heigth int
-	fmt.Println("请输入立方体的长 宽 高，依空格分隔")
-	fmt.Scanf("%d %d %d", &length, &width, &heigth)
-
 	var b Box
-	b.Heigth = heigth
-	b.Width = width
-	b.Length = length
+	fmt.Println("请输入立方体的长 宽 高，依空格分隔")
+	fmt.Scanf("%d %d %d", &b.Length, &b.Width, &b.Heigth)
 	fmt.Println(b.Bulk())
 }
