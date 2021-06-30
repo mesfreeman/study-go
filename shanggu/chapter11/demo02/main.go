@@ -1,35 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
 
-// 继承初探
-type Student struct {
-	Name  string
-	Age   int
-	Score int
-}
-
-// 介绍
-func (s *Student) Say() {
-	fmt.Println("My name is " + s.Name)
-}
-
-// 小学生
-type Pupil struct {
-	Student
-}
-
-// 大学生
-type College struct {
-	Student
-}
+	"github.com/mesfreeman/study-go/shanggu/chapter11/demo02/model"
+)
 
 func main() {
-	pupic := &Pupil{}
-	pupic.Name = "xiaohe"
-	pupic.Say()
-
-	college := &College{}
-	college.Student.Name = "xiaohong"
-	college.Say()
+	account := model.NewAccount()
+	account.SetIdcard("222333")
+	account.SetPassword("112233")
+	account.SetBlance(102.50)
+	fmt.Println(account)
 }
