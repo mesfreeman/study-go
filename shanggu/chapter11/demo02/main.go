@@ -6,6 +6,7 @@ import (
 	"github.com/mesfreeman/study-go/shanggu/chapter11/demo02/model"
 )
 
+// 工厂模式
 func main() {
 	account := model.NewAccount()
 	account.SetIdcard("222333")
