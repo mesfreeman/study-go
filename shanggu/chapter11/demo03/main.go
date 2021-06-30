@@ -26,7 +26,7 @@ type College struct {
 
 func main() {
 	pupic := &Pupil{}
-	pupic.Name = "xiaohe"
+	pupic.Name = "xiaohe" // 简化调用
 	pupic.Say()
 
 	college := &College{}
