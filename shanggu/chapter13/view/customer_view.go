@@ -1,10 +1,29 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/mesfreeman/study-go/shanggu/chapter13/service"
+)
 
 type CustomerView struct {
-	Key  int
-	Loop bool
+	Key             int
+	Loop            bool
+	customerService *service.CustomerService
+}
+
+// 显示客户列表
+func (cv *CustomerView) list() {
+	fmt.Println("---------------------------客户列表---------------------------")
+	fmt.Println("编号\t姓名\t性别\t年龄\t电话\t邮箱")
+
+	// 遍历列表数据
+	customers := cv.customerService.List()
+	for _, customer := range customers {
+		fmt.Println(customer.GetInfo())
+	}
+
+	fmt.Printf("\n-------------------------客户列表完成-------------------------\n\n")
 }
 
 func (cv *CustomerView) mainMenu() {
@@ -26,7 +45,7 @@ func (cv *CustomerView) mainMenu() {
 		case 3:
 			fmt.Println("删除客户")
 		case 4:
-			fmt.Println("客户列表")
+			cv.list()
 		case 5:
 			cv.Loop = false
 		default:
