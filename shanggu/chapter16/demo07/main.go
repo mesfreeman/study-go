@@ -5,14 +5,14 @@ import (
 	"time"
 )
 
-func addNum(numChan chan int) {
+func addNum(numChan chan<- int) {
 	for i := 1; i <= 200; i++ {
 		numChan <- i
 	}
 	close(numChan)
 }
 
-func readNum(numChan chan int, resChan chan map[int]int, exitChan chan bool) {
+func readNum(numChan <-chan int, resChan chan<- map[int]int, exitChan chan<- bool) {
 	for {
 		var res int
 		num, ok := <-numChan
