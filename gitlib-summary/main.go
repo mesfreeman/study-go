@@ -52,6 +52,11 @@ func main() {
 	fmt.Scan(&projectStr)
 	if projectStr != "0" {
 		needProjects = strings.Split(projectStr, ",")
+		fmt.Println()
+		fmt.Println("将会统计这些项目：", needProjects)
+	} else {
+		fmt.Println()
+		fmt.Println("将会统计所有项目")
 	}
 
 	for page := 1; page < 20; page++ {
