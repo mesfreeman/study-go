@@ -10,6 +10,6 @@ require (
 require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/smartystreets/goconvey v1.7.2 // indirect
-	golang.org/x/net v0.0.0-20201216054612-986b41b23924 // indirect
+	golang.org/x/net v0.7.0 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
