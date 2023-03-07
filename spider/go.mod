@@ -13,6 +13,6 @@ require (
 	github.com/smartystreets/goconvey v1.7.2 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
-	golang.org/x/net v0.0.0-20220225172249-27dd8689420f // indirect
+	golang.org/x/net v0.7.0 // indirect
 	moul.io/http2curl v1.0.0 // indirect
 )
